@@ -1,66 +1,41 @@
-## Foundry
+# Learning Ethereum
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+This repository is a collection of examples and useful smart contracts that I am building while learning about Ethereum and Solidity. The purpose is to document my journey, share knowledge, and provide references for myself and others interested in Ethereum development.
 
-Foundry consists of:
+## Overview
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+This repository includes / will include:
+- Basic Solidity examples demonstrating key concepts.
+- Useful smart contracts for learning and experimenting.
+- Comments and explanations for clarity and understanding.
 
-## Documentation
+## Contracts
 
-https://book.getfoundry.sh/
+### 1. `DynamicArrayInStorage.sol`
+Demonstrates how Solidity organizes storage for state variables, particularly dynamic arrays. Key features include:
+- Adding elements to a dynamic array.
+- Reading raw storage slots.
+- Computing `keccak256` hashes of storage slots for array indexing.
 
-## Usage
+### 2. `DynamicArraysInMemory.sol`
+Explores the memory layout and gas costs associated with dynamic arrays in Solidity. Key features include:
+- Probing memory slots for dynamic arrays.
+- Demonstrating memory expansion and its quadratic gas cost.
+- An example function that intentionally causes a gas exhaustion error.
 
-### Build
 
-```shell
-$ forge build
+## How to Use
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/KMean/learning-ethereum.git
+   cd learning-ethereum
+   ```
+2. Install dependencies for testing or deploying:
+```bash
+forge build
 ```
-
-### Test
-
-```shell
-$ forge test
-```
-
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
+3. Run Tests
+```bash
+forge test
 ```
