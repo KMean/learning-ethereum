@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
-import "forge-std/Script.sol";
+import {Script} from "forge-std/Script.sol";
+import {console2} from "forge-std/Test.sol";
 import {DynamicArraysInMemory} from "src/memory/DynamicArraysInMemory.sol";
 
 contract DeployDynamicArraysInMemory is Script {
@@ -12,7 +13,7 @@ contract DeployDynamicArraysInMemory is Script {
         DynamicArraysInMemory dynamicArraysInMemory = new DynamicArraysInMemory();
 
         // Log the deployed contract address
-        console.log("DynamicArray deployed at:", address(dynamicArraysInMemory));
+        console2.log("DynamicArray deployed at:", address(dynamicArraysInMemory));
 
         vm.stopBroadcast();
 

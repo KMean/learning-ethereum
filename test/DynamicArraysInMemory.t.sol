@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
-import "forge-std/Test.sol";
+import {Test} from "forge-std/Test.sol";
 import {DeployDynamicArraysInMemory} from "script/DeployDynamicArraysInMemory.s.sol";
 import {DynamicArraysInMemory} from "src/memory/DynamicArraysInMemory.sol";
 
