@@ -11,13 +11,13 @@ This repository includes / will include:
 
 ## Contracts
 
-### 1. `DynamicArrayInStorage.sol`
+### 1. [DynamicArraySInStorage.sol](src/storage/DynamicArraysInStorage.sol)
 Demonstrates how Solidity organizes storage for state variables, particularly dynamic arrays. Key features include:
 - Adding elements to a dynamic array.
 - Reading raw storage slots.
 - Computing `keccak256` hashes of storage slots for array indexing.
 
-### 2. `DynamicArraysInMemory.sol`
+### 2. [DynamicArraysInMemory.sol](src/memory/DynamicArraysInMemory.sol)
 Explores the memory layout and gas costs associated with dynamic arrays in Solidity. Key features include:
 - Probing memory slots for dynamic arrays.
 - Demonstrating memory expansion and its quadratic gas cost.
