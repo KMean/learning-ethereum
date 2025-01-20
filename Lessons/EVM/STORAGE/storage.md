@@ -78,7 +78,7 @@ SLOAD 0x02  // arr[2]
 
 ### **2.3 Dynamic Arrays**
 
-For a detailed implementation, refer to the [DynamicArraysInStorage.sol](../src/DynamicArraysInStorage.sol) file in the repository, which includes examples and assembly functions to explore dynamic arrays in storage.
+For a detailed implementation, refer to the [DynamicArraysInStorage.sol](../../src/DynamicArraysInStorage.sol) file in the repository, which includes examples and assembly functions to explore dynamic arrays in storage.
 
 Dynamic arrays use a "slot pointer" strategy. The length of the array is stored at the specified slot, and the elements are stored starting at `keccak256(slot)`.
 
