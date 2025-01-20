@@ -30,7 +30,7 @@ For a function with signature `example(uint256, address)`:
    - Dynamic parameters (e.g., strings, arrays) include a 32-byte offset pointer.
 
 #### Example:
-For `example(42, 0x1234...5678)`:
+For example `example(42, 0x1234...5678)`:
 - Function Selector: `0xabcd1234`
 - Call Data:
   ```
