@@ -2,7 +2,7 @@
 pragma solidity ^0.8.24;
 
 import "forge-std/Script.sol";
-import {DynamicArraysInMemory} from "src/basic/DynamicArraysInMemory.sol";
+import {DynamicArraysInMemory} from "src/memory/DynamicArraysInMemory.sol";
 
 contract DeployDynamicArraysInMemory is Script {
     function run() external returns (DynamicArraysInMemory) {
