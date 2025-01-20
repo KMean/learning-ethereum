@@ -102,6 +102,7 @@ uint256 x = 10; // Stored as a single 32-byte word in memory
 - Reference types (e.g., `arrays`, `structs`) have more complex memory layouts:
   - **Static Arrays**: Start with the length, followed by the elements.
   - **Dynamic Arrays and Strings**: Start with the length, followed by a pointer to the actual data.
+  For a detailed implementation, refer to the [DynamicArraysInStorage.sol](../../../src/memory/DynamicArraysInMemory.sol) file in the repository, which includes examples and assembly functions to explore dynamic arrays in Memory.
 
 #### Example:
 ```solidity
