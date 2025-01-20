@@ -1,6 +1,17 @@
 # **Mastering the Ethereum Virtual Machine (EVM)**
 
-The Ethereum Virtual Machine (EVM) is the backbone of blockchain development and security auditing. A strong grasp of its architecture, transaction processing, and gas optimization is essential for advancing as a blockchain developer or researcher.
+The Ethereum Virtual Machine (EVM) is the backbone of blockchain development and security auditing. This document provides an overview of the EVM. For deeper dives into each component, refer to the linked sections below.
+
+---
+
+## **How to Navigate**
+This guide is modular. Each section links to detailed explanations and practical examples:
+- [STACK](./STACK/stack.md)
+- [MEMORY](./MEMORY/memory.md)
+- [STORAGE](./STORAGE/storage.md)
+- [CALLDATA](./CALLDATA/calldata.md)
+- [CODE](./CODE/code.md)
+- [LOGS](./LOGS/logs.md)
 
 ---
 
@@ -12,6 +23,8 @@ The EVM organizes data into six key areas:
 - A Last-In-First-Out (LIFO) data structure for 32-byte words.
 - Handles immediate values such as integers, addresses, and pointers.
 - Operates via `PUSH`, `POP`, and `SWAP` opcodes.
+
+[Learn more about stack operations](./STACK/stack.md).
 
 #### **Example: Basic Stack Operations**
 ```assembly
@@ -30,6 +43,8 @@ MUL           // Multiply 8 and 2, result: 16
   - `0x40`: Free memory pointer.
   - `0x60`: Reserved for dynamic arrays.
 
+[Learn more about memory management](./MEMORY/memory.md).
+
 #### **Example: Memory Operations**
 ```assembly
 PUSH1 0x10    // Value to store
@@ -42,6 +57,8 @@ MLOAD         // Load 0x10 from address 0x00
 ### **1.3 Call Data**
 - Read-only, immutable data sent with transactions.
 - Efficient for passing input parameters.
+
+[Learn more about calldata](./CALLDATA/calldata.md).
 
 #### **Example: Reading Call Data**
 ```solidity
@@ -58,6 +75,8 @@ Call data for `doubleInput(5)`:
 ### **1.4 Storage**
 - Persistent, mapped to contract addresses, and expensive in gas.
 - Organized in 32-byte slots.
+
+[Learn more about storage](./STORAGE/storage.md).
 
 #### **Example: Storage Interaction**
 ```solidity
@@ -76,9 +95,13 @@ function readData() external view returns (uint256) {
 - Immutable bytecode stored at the contract address.
 - Executes functions as defined at deployment.
 
+[Learn more about code](./CODE/code.md).
+
 ### **1.6 Logs**
 - Write-only, used for emitting events.
 - Useful for off-chain applications and debugging.
+
+[Learn more about logs](./LOGS/logs.md).
 
 #### **Example: Emitting an Event**
 ```solidity
@@ -98,6 +121,8 @@ function storeData(uint256 data) external {
 - **`POP`**: Removes the top item.
 - **`SWAP`**: Reorders stack items.
 
+[Learn more about stack operations](./STACK/stack.md).
+
 #### **Example: SWAP**
 ```assembly
 PUSH1 0x01    // Stack: [0x01]
@@ -109,6 +134,8 @@ SWAP1         // Stack: [0x01, 0x02]
 - **`MSTORE`**: Write a word to memory.
 - **`MLOAD`**: Read a word from memory.
 - **`MSTORE8`**: Store a single byte.
+
+[Learn more about memory operations](./MEMORY/memory.md).
 
 #### **Example: Memory Usage**
 ```assembly
@@ -122,6 +149,8 @@ MLOAD         // Load 0x2A from 0x20
 ### **2.3 Storage Operations**
 - **`SSTORE`**: Write to storage (gas-intensive).
 - **`SLOAD`**: Read from storage.
+
+[Learn more about storage operations](./STORAGE/storage.md).
 
 #### **Example: Storage Operation**
 ```assembly
@@ -142,10 +171,14 @@ SSTORE        // Store 0x05 in slot 0x00
 keccak256("transfer(address,uint256)") = 0xa9059cbb
 ```
 
+[Learn more about function selectors](./CODE/code.md).
+
 ### **3.2 Gas Efficiency Tips**
 - Minimize `SSTORE` and `SLOAD`.
 - Use `CALLDATA` directly for read-only operations.
 - Optimize memory allocation to avoid unnecessary expansion.
+
+[Learn more about gas optimizations](./STORAGE/storage.md).
 
 #### **Example: Avoiding Costly Memory Expansion**
 ```assembly
@@ -157,6 +190,7 @@ MSTORE        // Expands memory, increasing gas costs
 ---
 
 ## **4. Resources**
+
 - **[Ethereum Yellow Paper](https://ethereum.github.io/yellowpaper/)**: Formal specification of the EVM.
 - **[EVM Codes](https://www.evm.codes/)**: Interactive opcode explorer.
 
