@@ -118,6 +118,31 @@ PUSH1 0x01    // Stack: [0x01]
 PUSH1 0x02    // Stack: [0x02, 0x01]
 SWAP1         // Stack: [0x01, 0x02]
 ```
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract EVMStackExample {
+    function executeStackOperations() public pure returns (uint256, uint256) {
+        uint256 a;
+        uint256 b;
+
+        assembly {
+            // PUSH1 0x01
+            a := 1
+            // PUSH1 0x02
+            b := 2
+
+            // SWAP1
+            let temp := a
+            a := b
+            b := temp
+        }
+
+        return (a, b);
+    }
+}
+```
 
 ### **2.2 Memory Operations**
 - `MSTORE`: Writes a 32-byte word to a specific memory location.
