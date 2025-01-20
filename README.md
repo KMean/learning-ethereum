@@ -16,7 +16,7 @@ This repository includes / will include:
 
 ## Contracts
 
-### 1. [DynamicArraySInStorage.sol](src/storage/DynamicArraysInStorage.sol)
+### 1. [DynamicArraysInStorage.sol](src/storage/DynamicArraysInStorage.sol)
 Demonstrates how Solidity organizes storage for state variables, particularly dynamic arrays. Key features include:
 - Adding elements to a dynamic array.
 - Reading raw storage slots.
