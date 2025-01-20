@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>The EVM.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="mastering-the-ethereum-virtual-machine-evm">Mastering the Ethereum Virtual Machine (EVM)</h1>
+<p>The Ethereum Virtual Machine (EVM) is central to blockchain development and security auditing. A deep understanding of the EVM is crucial for transitioning from beginner to advanced blockchain developer or security researcher. This guide outlines the structure of the EVM, how it processes data during transactions, and offers insights into gas optimizations.</p>
+<hr>
+<h2 id="1-data-storage-in-the-evm"><strong>1. Data Storage in the EVM</strong></h2>
+<p>The EVM has six primary areas for data storage:</p>
+<h3 id="11-stack"><strong>1.1 Stack</strong></h3>
+<ul>
+<li>A simple Last-In-First-Out (LIFO) data structure.</li>
+<li>Holds 32-byte words, used for storing immediate values like integers, addresses, and pointers to memory or storage.</li>
+<li>Values are pushed to and popped from the stack.</li>
+</ul>
+<h3 id="12-memory"><strong>1.2 Memory</strong></h3>
+<ul>
+<li>A temporary, byte-addressable storage area for the duration of a transaction.</li>
+<li>Organized in 32-byte words, but does not use LIFO operations.</li>
+<li>Includes reserved areas for Solidity's internal operations:
+<ul>
+<li><code>0x00</code> to <code>0x20</code>: Scratch space.</li>
+<li><code>0x40</code>: Free memory pointer (points to the next unused memory slot).</li>
+<li><code>0x60</code>: Reserved for dynamic arrays.</li>
+</ul>
+</li>
+</ul>
+<h3 id="13-call-data"><strong>1.3 Call Data</strong></h3>
+<ul>
+<li>A read-only area containing the data sent to a contract with a transaction.</li>
+<li>Efficient for reading and should be used directly when modification isn't needed.</li>
+</ul>
+<h3 id="14-storage"><strong>1.4 Storage</strong></h3>
+<ul>
+<li>Persistent and mapped to specific blockchain accounts.</li>
+<li>Organized in 32-byte slots.</li>
+<li>The most expensive area in terms of gas costs.</li>
+</ul>
+<h3 id="15-code"><strong>1.5 Code</strong></h3>
+<ul>
+<li>Contains the bytecode at a specific contract address.</li>
+<li>Immutable during execution.</li>
+</ul>
+<h3 id="16-logs"><strong>1.6 Logs</strong></h3>
+<ul>
+<li>A write-only space for emitting events, useful for external applications.</li>
+</ul>
+<hr>
+<h2 id="2-key-operations-in-the-evm"><strong>2. Key Operations in the EVM</strong></h2>
+<h3 id="21-stack-operations"><strong>2.1 Stack Operations</strong></h3>
+<ul>
+<li><code>PUSH</code>: Adds a 32-byte word to the stack.</li>
+<li><code>POP</code>: Removes the top item from the stack.</li>
+<li><code>SWAP</code>: Reorders items on the stack.</li>
+</ul>
+<h3 id="22-memory-operations"><strong>2.2 Memory Operations</strong></h3>
+<ul>
+<li><code>MSTORE</code>: Writes a 32-byte word to a specific memory location.</li>
+<li><code>MLOAD</code>: Reads a 32-byte word from a specific memory location.</li>
+<li><code>MSTORE8</code>: Stores a single byte in memory.</li>
+</ul>
+<h3 id="23-storage-operations"><strong>2.3 Storage Operations</strong></h3>
+<ul>
+<li><code>SSTORE</code>: Writes to a storage slot (expensive).</li>
+<li><code>SLOAD</code>: Reads from a storage slot.</li>
+</ul>
+<hr>
+<h2 id="3-transaction-execution-and-function-calls"><strong>3. Transaction Execution and Function Calls</strong></h2>
+<h3 id="31-function-selectors"><strong>3.1 Function Selectors</strong></h3>
+<ul>
+<li>Function selectors are the first 4 bytes of the <code>keccak256</code> hash of a function's signature.</li>
+<li>These selectors are used to determine which function to execute within a contract.</li>
+</ul>
+<h3 id="32-opcode-interpretation"><strong>3.2 Opcode Interpretation</strong></h3>
+<ul>
+<li>The EVM executes bytecode instructions (opcodes), such as <code>ADD</code>, <code>SUB</code>, and <code>MUL</code>.</li>
+<li>Opcodes correspond to specific hexadecimal values (e.g., <code>0x01</code> for <code>ADD</code>).</li>
+</ul>
+<h3 id="33-gas-efficiency-tips"><strong>3.3 Gas Efficiency Tips</strong></h3>
+<ul>
+<li>Minimize the use of <code>SSTORE</code> and <code>SLOAD</code> to reduce costs.</li>
+<li>Use <code>CALLDATA</code> instead of copying to memory when possible.</li>
+<li>Use smaller function selectors for gas efficiency, as EVM processes them in ascending order for contracts with fewer than four functions.</li>
+</ul>
+<hr>
+<h2 id="4-practical-insights"><strong>4. Practical Insights</strong></h2>
+<ul>
+<li><strong>Memory Expansion Costs</strong>: Writing to distant memory addresses increases gas costs exponentially.</li>
+<li><strong>Call Data Size Checks</strong>: Transactions must include valid call data; otherwise, they revert.</li>
+<li><strong>Binary Search for Functions</strong>: Contracts with more than four functions use binary search for function selectors, ensuring scalability.</li>
+</ul>
+<hr>
+<h2 id="5-resources-for-learning"><strong>5. Resources for Learning</strong></h2>
+<ul>
+<li><strong><a href="https://ethereum.github.io/yellowpaper/">Ethereum Yellow Paper</a></strong>: Defines the EVM and opcodes.</li>
+<li><strong><a href="https://www.evm.codes/">EVM Codes</a></strong>: A tool for exploring opcodes and their effects on the stack, memory, and storage.</li>
+<li><strong><a href="https://www.guardianaudits.com/">Guardian Audits</a></strong>: Offers free initial security notes for protocols under development.</li>
+</ul>
+<hr>
+<h2 id="conclusion"><strong>Conclusion</strong></h2>
+<p>Mastering the EVM involves understanding its data storage areas, how it processes transactions, and optimizing gas usage. This knowledge is essential for efficient smart contract development and security auditing. Developers should practice by exploring opcodes and analyzing how bytecode executes within the EVM.</p>
+
+</body>
+</html>
