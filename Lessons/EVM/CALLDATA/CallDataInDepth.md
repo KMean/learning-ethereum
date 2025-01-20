@@ -34,7 +34,7 @@ For example `example(42, 0x1234...5678)`:
 - Function Selector: `0xabcd1234`
 - Call Data:
   ```
-  abcd1234                               // Function selector
+  abcd1234                                                         // Function selector
   000000000000000000000000000000000000000000000000000000000000002a // uint256 42
   0000000000000000000000001234567890abcdef1234567890abcdef12345678 // address
   ```
