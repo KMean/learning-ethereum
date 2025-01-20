@@ -1,6 +1,6 @@
-# Deep Dive into Ethereum Virtual Machine (EVM) Storage
+# **STORAGE in the Ethereum Virtual Machine (EVM)**
 
-Understanding EVM storage is crucial for optimizing smart contracts and reducing gas costs. This guide delves into how storage works, including data layout, Solidity and assembly examples, and nuances like dynamic arrays.
+Storage is a key component of the Ethereum Virtual Machine (EVM), responsible for persistent data management within smart contracts. Unlike memory and calldata, storage retains its values between transactions, making it the most expensive type of data storage in terms of gas costs.
 
 ---
 
@@ -15,6 +15,7 @@ Storage in the EVM is persistent and associated with the blockchain state. Each 
 - Data is stored in a deterministic layout defined by the Solidity compiler.
 
 ### Solidity’s Deterministic Storage Layout:
+
 Solidity follows a predictable and consistent approach to assigning storage slots for variables, ensuring that data can be efficiently accessed and modified during contract execution. Here is how the compiler organizes data:
 
 1. **Sequential Slot Allocation**: For simple types like `uint256` and `address`, variables are stored in consecutive slots, starting from slot 0.
@@ -135,7 +136,7 @@ PUSH1 0x00                         // Slot of `balances`
 PUSH user_address                  // Address of the user (key)
 MSTORE                             // Store key in memory
 PUSH1 0x20                         // Key size
-KECCAK256                          // Compute storage slot
+KEd o                     // Compute storage slot
 SSTORE                             // Write value to computed slot
 ```
 
@@ -233,6 +234,12 @@ Given a dynamic array `uint256[] public arr;`, find the slot for `arr[2]`.
 - **[Hardhat](https://hardhat.org/)**: Development framework.
 
 ---
+
+## **6. Key Takeaways**
+
+- Storage is the most expensive and persistent data storage type in the EVM.
+- Use efficient layouts and minimize writes to optimize gas usage.
+- Understand the storage structure to debug and audit smart contracts effectively.
 
 By mastering storage intricacies, developers can write efficient, gas-optimized smart contracts and unlock advanced capabilities of the EVM.
 
