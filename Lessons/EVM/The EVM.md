@@ -57,6 +57,8 @@ MLOAD         // Load 0x10 from address 0x00
 ### **1.3 Call Data**
 - Read-only, immutable data sent with transactions.
 - Efficient for passing input parameters.
+- Only applies to reference types (e.g., arrays, strings, structs) when used as a parameter location.
+- For value types (e.g., uint256, bool, address), the calldata location is not specified because they are passed by value.
 
 [Learn more about calldata](./CALLDATA/calldata.md).
 
@@ -71,6 +73,21 @@ Call data for `doubleInput(5)`:
 0x2e64cec1 // Function selector
 0000000000000000000000000000000000000000000000000000000000000005 // Input value
 ```
+
+## Example: Using calldata for Reference Types
+```solidity
+function doubleInputs(uint256[] calldata inputs) external pure returns (uint256[] memory) {
+    uint256[] memory result = new uint256[](inputs.length);
+    for (uint256 i = 0; i < inputs.length; i++) {
+        result[i] = inputs[i] * 2;
+    }
+    return result;
+}
+```
+In this case, the parameter inputs is a dynamic array of uint256, and the calldata location ensures that:
+
+1. The array is read-only and immutable.
+2. Memory usage is minimized, as calldata allows direct access to the data in the transaction.
 
 ### **1.4 Storage**
 - Persistent, mapped to contract addresses, and expensive in gas.
