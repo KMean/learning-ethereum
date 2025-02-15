@@ -90,6 +90,7 @@ Memory expansion is not free and depends on the highest memory address accessed 
 
 ## **5. Memory Layout for Data Types**
 
+Check [EVM Memory Layout contract](../../../src/memory/MemoryLayout.sol) for examples.
 ### **5.1 Value Types**
 - Value types (e.g., `uint256`, `bool`, `address`) take up 32 bytes in memory.
 
